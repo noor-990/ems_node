@@ -1,5 +1,5 @@
 module.exports = {
-    HOST: "localhost",
+    HOST: "dev.codebele.com",
     USER: "root",
     PASSWORD: "",
     DB: "ems_node"
