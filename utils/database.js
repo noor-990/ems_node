@@ -1,6 +1,6 @@
 module.exports = {
     HOST: "dev.codebele.com",
     USER: "root",
-    PASSWORD: "",
+    PASSWORD: "Birds01!Eye",
     DB: "ems_node"
 };
