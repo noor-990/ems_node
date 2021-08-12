@@ -17,7 +17,7 @@ const bodyParser= require('body-parser')
   });
 
 
-server.listen(8000);
+server.listen(3006);
 
 
   
