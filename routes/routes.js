@@ -7,5 +7,6 @@ module.exports = app=>
 
  console.log("routes")
 
- app.post("/adduser",controllers.getadduser);
+ app.post("/adduser",controllers.getAdduser);
+ app.post("/login",controllers.getUser);
 }
