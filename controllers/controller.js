@@ -47,8 +47,9 @@ exports.getUser = (req,res) =>{
       res.status(200).send({
         status:true,
         message:"login successful",
+        data:data
       })
     }
   })
-
 }
+

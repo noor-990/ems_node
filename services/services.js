@@ -2,6 +2,8 @@ const sql = require ('./db')
 const bcrypt = require('bcrypt');
 const { PASSWORD, USER } = require('../utils/database');
 const jwt =require('jsonwebtoken');
+const checkauth= require('../middleware/check_auth')
+
 
 exports.adduser = async(req,result)=> {
    console.log("asdfgh")
@@ -38,16 +40,25 @@ exports.adduser = async(req,result)=> {
       }
       else{
         console.log(res)
-        console.log(res[0].password)
-        bcrypt.compare(req.body.password,res[0].password,(error,hash) =>{
-          if(error){
-            console.log(error)
-             }
-             if(hash){
-    
-               result(null,res)
-             }
-             });
+        // console.log(res[0].password)
+        result(null,res)
+        // bcrypt.compare(req.body.password,res[0].password,(error,hash) =>{
+        //   if(error){
+        //     console.log(error)
+        //      }
+        //      if(hash){
+        //      const token = jwt.sign({
+        //                                 email:user[0].email,
+        //                                 userid:user[0]._id},
+        //                 process.env.Jwt_key,
+        //                 {
+        //                    expiresIn:"1h"
+        //                 });
+        //                 console.log(token)
+                        
+        //        result(null,res)
+        //      }
+        //      });
 
         
       }
