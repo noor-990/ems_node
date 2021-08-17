@@ -6,6 +6,14 @@ const Users = require('../services/services');
 exports.getAdduser = async (req, res) => {
   console.log("as dfg")
     Users.adduser(req, async (err, data) => {
+      console.log(err)
+      console.log(data)
+      if(!err&&!data){
+        res.status(400).send({
+          status: false,
+          message: "User Alredy exist"
+        });
+      }
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({

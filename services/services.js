@@ -7,28 +7,41 @@ const checkauth= require('../middleware/check_auth')
 
 exports.adduser = async(req,result)=> {
    console.log("asdfgh")
- bcrypt.hash(req.body.password,10,((err,hash)=>{
-    if(err){
-              return res.status(500).json({err});
+   sql.query(`SELECT * FROM mst_users WHERE email='${req.body.email}'`,(error,res)=>{
+     console.log(res)
+      if(error){
+        result(error,null)
+      }if(res.length>0){
+        result(error, null)
+      }else{
+        bcrypt.hash(req.body.password,10,((err,hash)=>{
+          if(err){
+                    return res.status(500).json({err});
+                  }
+           else{
+           req.body.password =hash
+            
+             sql.query(`INSERT INTO mst_users(name,surname,email,password,phoneno,date_of_birth,gender) VALUES ('${req.body.name}','${req.body.surname}','${req.body.email}','${req.body.password}','${req.body.phoneno}','${req.body.date_of_birth}','${req.body.gender}')`,(err,res)=>{
+          if (err) {
+              console.log("error:", err);
+              result(err, null);
+               return;
+            } 
+            else{
+              result(null, res)
             }
-     else{
-       req.body.password =hash
-      
-       sql.query(`INSERT INTO mst_users(name,surname,email,password,phoneno,date_of_birth,gender) VALUES ('${req.body.name}','${req.body.surname}','${req.body.email}','${req.body.password}','${req.body.phoneno}','${req.body.date_of_birth}','${req.body.gender}')`,(err,res)=>{
-    if (err) {
-        console.log("error:", err);
-        result(err, null);
-         return;
-      } 
-      else{
-        result(null, res)
+          }
+      )
+             }
+            
+          })
+        )
+
+
+
       }
-    }
-)
-       }
-      
-    })
-  )}
+   })
+ }
 
   exports.login = (req,result)=> {
     
@@ -40,27 +53,10 @@ exports.adduser = async(req,result)=> {
       }
       else{
         console.log(res)
-        // console.log(res[0].password)
+        const token =jwt.sign({email:res[0].email},"Noor",{expiresIn:"1h"});
+        console.log(token);
+        res[0].token =token
         result(null,res)
-        // bcrypt.compare(req.body.password,res[0].password,(error,hash) =>{
-        //   if(error){
-        //     console.log(error)
-        //      }
-        //      if(hash){
-        //      const token = jwt.sign({
-        //                                 email:user[0].email,
-        //                                 userid:user[0]._id},
-        //                 process.env.Jwt_key,
-        //                 {
-        //                    expiresIn:"1h"
-        //                 });
-        //                 console.log(token)
-                        
-        //        result(null,res)
-        //      }
-        //      });
-
-        
       }
     })
   }
