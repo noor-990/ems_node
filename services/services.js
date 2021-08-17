@@ -12,7 +12,7 @@ exports.adduser = async(req,result)=> {
       if(error){
         result(error,null)
       }if(res.length>0){
-        result(error, null)
+        result(null, res)
       }else{
         bcrypt.hash(req.body.password,10,((err,hash)=>{
           if(err){

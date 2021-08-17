@@ -4,7 +4,7 @@ const bodyParser= require('body-parser')
 const cors = require('cors')
 
 const app = express();
-  app.use(cors())
+  
   const corsOpts = {
     origin: '*',
   
@@ -19,6 +19,7 @@ const app = express();
   };
   
   app.use(cors(corsOpts));
+  app.use(cors())
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
