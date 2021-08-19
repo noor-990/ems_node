@@ -10,6 +10,6 @@ module.exports = app=>
  app.post("/login", controllers.getUser);
  app.post("/noor", checkAuth, controllers.noorCheck);
  app.get("/getuser",controllers.getUser);
-
+ app.post("/findsk",controllers.findSk);
 
 }

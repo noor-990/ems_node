@@ -76,3 +76,18 @@ exports.adduser = async(req,result)=> {
         }
     });
   }
+
+  exports.findsk = (req,result) =>{
+    sql.query(`SELECT * FROM mst_users WHERE sk_user_id = '${req.body.sk_user_id}'`,(err,res) =>{
+      if(err){
+        console.log("error:",err);
+        result(err,null);
+        return;
+      }
+      else(res.length)
+      {
+        result(null,res);
+        return;
+      }
+    })
+  }

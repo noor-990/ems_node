@@ -90,3 +90,29 @@ exports.getUser =(req,res) =>{
     }
   })
 }
+
+exports.findSk = (req,res) =>{
+  console.log("controller")
+  Users.findsk(req,(err,data)=>{
+    console.log(data)
+    if(err){
+      if(err.kind==="user not found"){
+        res.status(404).send({
+          status:false,
+          message:"sk_user not found"
+        });
+      } else{
+        res.status(500).send({
+          status:false,
+          message:"error retriving user"
+        });
+      }
+    } else{
+      res.status(200).send({
+        status:false,
+        message:"sk_user_id not found",
+        data:data
+      })
+    }
+  })
+}
