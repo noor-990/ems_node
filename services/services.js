@@ -12,7 +12,7 @@ exports.adduser = async(req,result)=> {
       if(error){
         result(error,null)
       }if(res.length>0){
-        result(null, res)
+        result(error,null)
       }else{
         bcrypt.hash(req.body.password,10,((err,hash)=>{
           if(err){
@@ -59,4 +59,20 @@ exports.adduser = async(req,result)=> {
         result(null,res)
       }
     })
+  }
+
+  exports.getuser = (req,result) => {
+
+    sql.query(`SELECT sk_user_id, name,surname,email,phoneno,date_of_birth,gender FROM mst_users`,(err,res)=>{
+        if(err){
+          console.log("error:", err);
+          result(err,null);
+          return;
+        }
+        else(res.length)
+        {
+          result(null,res);
+          return;
+        }
+    });
   }
