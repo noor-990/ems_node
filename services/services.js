@@ -42,6 +42,7 @@ exports.adduser = async(req,result)=> {
 
   exports.login = (req,result)=> {
 console.log("asfds");
+  
     sql.query(`SELECT * FROM mst_users WHERE email = '${req.body.email}'`, (err,res) =>{
     if(err){
       console.log("error:",err);
