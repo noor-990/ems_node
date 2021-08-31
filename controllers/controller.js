@@ -4,7 +4,7 @@ const Users = require('../services/services');
 
 
 exports.getAdduser = async (req, res) => {
-  console.log("as dfg") 
+  console.log("asdfg") 
     Users.adduser(req, async (err, data) => {
       console.log(err)
       console.log(data)
@@ -36,9 +36,10 @@ exports.getAdduser = async (req, res) => {
     })  
 }
 
-exports.getUser = (req,res) =>{
-  console.log("controller")
-  Users.login(req,(err,data)=>{
+exports.getLogin = (req,res) =>{
+  console.log("controller",req.body)
+
+  Users.login(req,(err,data)=>{ 
     if(err){
       if(err.kind==="user not found"){
         res.status(404).send({
@@ -65,9 +66,10 @@ exports.noorCheck = (req,res)=>{
   console.log("noors Function")
 }
 
-exports.getUser =(req,res) =>{
+exports.getUsers=(req,res) =>{
   console.log("controller")
-  Users.getuser(req,(err,data)=>{
+  Users.user(req,(err,data) =>{
+    console.log(7)
     console.log(data)
     if(err){
       if(err.kind==="user not found"){
@@ -91,10 +93,24 @@ exports.getUser =(req,res) =>{
   })
 }
 
-exports.findSk = (req,res) =>{
-  console.log("controller")
-  Users.findsk(req,(err,data)=>{
-    console.log(data)
+exports.findSk = (req,res) => {
+  console.log("controller ")
+  Users.findsk(req, (err,data) => {
+    console.log(data.length)
+    if(data.length === 0){
+      res.status(400).send({
+        status: false,
+        message: "sk user not exist"
+      })
+    }
+    else{
+      res.status(200).send({
+        status:true,
+        message:"sk_user_id found",
+       data:data
+      })
+    }
+    
     if(err){
       if(err.kind==="user not found"){
         res.status(404).send({
@@ -107,12 +123,7 @@ exports.findSk = (req,res) =>{
           message:"error retriving user"
         });
       }
-    } else{
-      res.status(200).send({
-        status:false,
-        message:"sk_user_id not found",
-        data:data
-      })
-    }
+    } 
+    
   })
 }

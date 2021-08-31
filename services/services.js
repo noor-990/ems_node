@@ -1,5 +1,5 @@
 const sql = require ('./db')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { PASSWORD, USER } = require('../utils/database');
 const jwt =require('jsonwebtoken');
 const checkauth= require('../middleware/check_auth')
@@ -7,7 +7,7 @@ const checkauth= require('../middleware/check_auth')
 
 exports.adduser = async(req,result)=> {
    console.log("asdfgh")
-   sql.query(`SELECT * FROM mst_users WHERE email='${req.body.email}'`,(error,res)=>{
+   sql.query(`SELECT * FROM mst_users WHERE email ='${req.body.email}'`,(error,res)=>{
      console.log(res)
       if(error){
         result(error,null)
@@ -31,46 +31,47 @@ exports.adduser = async(req,result)=> {
               result(null, res)
             }
           }
-      )
+             )
              }
             
           })
         )
-
-
-
-      }
+     }
    })
- }
+}
 
   exports.login = (req,result)=> {
-    
-    sql.query(`SELECT * FROM mst_users WHERE email='${req.body.email}'`,(err,res)=>{
-      if(err){
-        console.log("error:",err);
-        result(err,null);
-        return;
-      }
-      else{
-        console.log(res)
-        const token =jwt.sign({email:res[0].email},"Noor",{expiresIn:"1h"});
-        console.log(token);
-        res[0].token =token
-        result(null,res)
-      }
-    })
-  }
+console.log("asfds");
+    sql.query(`SELECT * FROM mst_users WHERE email = '${req.body.email}'`, (err,res) =>{
+    if(err){
+      console.log("error:",err);
+      result(err,null);
+      return;
+    }
+    else{
+      console.log(res)
+      const token =jwt.sign({email:res[0].email},"Noor",{expiresIn:"1h"});
+      console.log(token);
+      res[0].token =token
+      result(null,res);
+      return;
+    }
+  })
+}
 
-  exports.getuser = (req,result) => {
 
-    sql.query(`SELECT sk_user_id, name,surname,email,phoneno,date_of_birth,gender FROM mst_users`,(err,res)=>{
+ 
+  exports.user = (req,result) => {
+     console.log(6);
+    sql.query(` SELECT sk_user_id, name,surname,email,phoneno,date_of_birth,gender FROM mst_users`,(err,res)=>{
         if(err){
           console.log("error:", err);
           result(err,null);
           return;
         }
-        else(res.length)
+        else
         {
+          (res.length)
           result(null,res);
           return;
         }
@@ -78,15 +79,17 @@ exports.adduser = async(req,result)=> {
   }
 
   exports.findsk = (req,result) =>{
-    sql.query(`SELECT * FROM mst_users WHERE sk_user_id = '${req.body.sk_user_id}'`,(err,res) =>{
+  
+    sql.query(`SELECT * FROM mst_users WHERE sk_user_id = '${req.body.sk_user_id}'`, (err,res) => {
       if(err){
-        console.log("error:",err);
+        console.log(err); 
         result(err,null);
         return;
       }
-      else(res.length)
+      else 
       {
-        result(null,res);
+        (res.length)
+        result(null, res);
         return;
       }
     })

@@ -7,9 +7,9 @@ module.exports = app=>
  console.log("routes")
 
  app.post("/adduser",controllers.getAdduser);
- app.post("/login", controllers.getUser);
+ app.post("/login",controllers.getLogin);
  app.post("/noor", checkAuth, controllers.noorCheck);
- app.get("/getuser",controllers.getUser);
+ app.get("/user",controllers.getUsers);
  app.post("/findsk",controllers.findSk);
 
 }
