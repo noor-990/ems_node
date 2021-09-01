@@ -11,5 +11,6 @@ module.exports = app=>
  app.post("/noor", checkAuth, controllers.noorCheck);
  app.get("/user",controllers.getUsers);
  app.post("/findsk",controllers.findSk);
-
+ app.post("/updates",controllers.updatesk);
+ 
 }

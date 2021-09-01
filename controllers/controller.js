@@ -127,3 +127,37 @@ exports.findSk = (req,res) => {
     
   })
 }
+
+exports.updatesk = (req,res) => {
+  console.log("controllers")
+  Users.updates(req,(err,data)=>{
+    if(data){
+      res.status(200).send({
+        status: true,
+        message: "updateded succefully",
+        data:data
+      })
+    }
+    else{
+      res.status(400).send({
+        status:flase,
+        message:"updateded succusfully",
+   
+      })
+    }
+    
+    if(err){
+      if(err.kind==="user not found"){
+        res.status(404).send({
+          status:false,
+          message:"sk_user not found"
+        });
+      } else{
+        res.status(500).send({
+          status:false,
+          message:"error retriving user"
+        });
+      }
+    }
+  })
+}

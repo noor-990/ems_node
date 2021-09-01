@@ -81,7 +81,7 @@ console.log("asfds");
 
   exports.findsk = (req,result) =>{
   
-    sql.query(`SELECT * FROM mst_users WHERE sk_user_id = '${req.body.sk_user_id}'`, (err,res) => {
+    sql.query(`SELECT sk_user_id,name,surname,email,phoneno,date_of_birth,gender FROM mst_users WHERE sk_user_id = '${req.body.sk_user_id}'`, (err,res) => {
       if(err){
         console.log(err); 
         result(err,null);
@@ -95,3 +95,31 @@ console.log("asfds");
       }
     })
   }
+
+exports.updates =(req,result) =>{
+  console.log(`UPDATE mst_users SET name='${req.body.name}',surname='${req.body.name}',phoneno='${req.body.name}',date_of_birth='${req.body.name}',gender='${req.body.name}' WHERE sk_user_id='${req.body.sk_user_id}'`)
+  sql.query(`UPDATE mst_users SET name='${req.body.name}',surname='${req.body.surname}',phoneno='${req.body.phoneno}',date_of_birth='${req.body.date_of_birth}',gender='${req.body.gender}' WHERE sk_user_id='${req.body.sk_user_id}'`, (err,res) => {
+if(err){
+  console.log(err);
+  result(err,null);
+  return;
+}
+else{
+  console.log("noor"+ res)
+sql.query(`SELECT * FROM mst_users WHERE sk_user_id = '${req.body.sk_user_id}'`, (err,res) => {
+  if(err){
+         console.log(err);
+         result(err,null);
+         return;
+  }
+ else{
+   console.log(res);
+    (res)
+    result(null,res);
+    return;
+ }
+
+})
+}
+})
+}
