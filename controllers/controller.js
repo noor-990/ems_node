@@ -96,7 +96,7 @@ exports.getUsers=(req,res) =>{
 exports.findSk = (req,res) => {
   console.log("controller ")
   Users.findsk(req, (err,data) => {
-    console.log(data.length)
+    //console.log(data.length)
     if(data.length === 0){
       res.status(400).send({
         status: false,
